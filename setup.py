@@ -6,6 +6,7 @@ import warnings
 try:
     from Cython.Build import cythonize
     USE_CYTHON = True
+    print('Successfully imported from Cython')
 except ImportError:
     USE_CYTHON = False
 
@@ -14,6 +15,7 @@ try:
     import numpy
     numpy_includes = [numpy.get_include()]
     HAVE_NUMPY = True
+    print('Successfully Imported Numpy')
 except ImportError:
     # "python setup.py build" will not work and trigger fallback to pure python later on,
     # but "python setup.py clean" will be successful with the first call of setup(...)
@@ -49,6 +51,7 @@ extensions = [Extension(
     )]
 
 if USE_CYTHON:
+    print('Cythonizing')
     extensions = cythonize(extensions)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -74,6 +77,7 @@ kwargs = {
 }
 
 try:
+    print('Beginning Setup')
     setup(**kwargs)
 except SystemExit:
     del kwargs['ext_modules']
